@@ -1,9 +1,9 @@
 # CS 30 Work
 
 ## Demos
-- [Moving Square](01-First-Day) 
-- [Interactive Scene](interactive-scene)
-- [Scope Demo](02-Scope)
+- [Moving Square](01-first-day) 
+- [Scope Demo](02-scope)
+- [Image Demo](03-images)
 
 ## Assignments
-- add assignments here
+- [Interactive Scene](interactive-scene)

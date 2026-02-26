@@ -8,23 +8,25 @@
 // COMPLETE CHANGE OF PLANS, make it a space avoider thing like my python final but have it switch inputs every so often
 
 
+let shipX = 250;
+let shipY = 500;
+let shipSpeed = 5;
 
 function setup() {
+  
+  
   noStroke();
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(500, 500);
 }
 
-let shipX = width/2;
-let shipY = 400;
-let shipSpeed = 5;
 
 function moveShipX() {
   fill("black");
-  circle(shipX, shipY, 100);
-  if (keyIsDown(37)) {
+  circle(shipX, shipY, 50);
+  if (keyIsDown(65)) {
     shipX -= shipSpeed;
   }
-  if (keyIsDown(39)) {
+  if (keyIsDown(68)) {
     shipX += shipSpeed;
   }
 }
