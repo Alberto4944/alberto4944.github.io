@@ -13,28 +13,20 @@ let shipSize = 50;
 
 let enemySpeed = 2;
 let enemySize = 25;
-enemies = [];
+let enemies = [];
 
 let hitDistance = 50;
 let lives = 3;
 let lastHit = -500;
+
+let randomLeft = 65;
+let randomRight = 68;
 
 function setup() {
   noStroke();
   createCanvas(500, 500);
   spawnEnemy();
   spawnEnemy();
-}
-
-function moveShipX() {
-  fill("black");
-  circle(shipX, shipY, shipSize);
-  if (keyIsDown(65)) {
-    shipX -= shipSpeed;
-  }
-  if (keyIsDown(68)) {
-    shipX += shipSpeed;
-  }
 }
 
 function draw() {
@@ -59,13 +51,36 @@ function moveEnemies() {
   for (let i = 0; i<enemies.length; i++) {
     circle(enemies[i].enemyX, enemies[i].enemyY, enemySize); // Draws the enemies
     enemies[i].enemyY+=enemySpeed; // moves the enemies
-    if (dist(shipX, shipY, enemies[i].enemyX, enemies[i].enemyY) <= (enemySize/2 + shipSize/2) && millis() > lastHit + 500) {
+    if (dist(shipX, shipY, enemies[i].enemyX, enemies[i].enemyY) <= enemySize/2 + shipSize/2 && millis() > lastHit + 500) {
       lives-=1;
       lastHit = millis(); // detects if the enemies collide with the ship
+      selectRandomKeys();
     }
     if (enemies[i].enemyY > height) {
       enemies[i].enemyY = 10;
-      enemies[i].enemyX = random(10, width-10);
+      enemies[i].enemyX = random(0+enemySize/2, width-enemySize/2);
     }
+  }
+}
+
+function selectRandomKeys() {
+  randomLeft = int(random(65,90));
+  randomRight = int(random(65,90));
+  while (randomLeft === randomRight) {
+    randomRight = int(random(65,90));
+  }
+  console.log("abcdefghijklmnopqrstuvwxyz"[randomLeft- 65] + randomLeft);
+  console.log("abcdefghijklmnopqrstuvwxyz"[randomRight - 65] + randomRight);
+
+}
+
+function moveShipX() {
+  fill("black");
+  circle(shipX, shipY, shipSize);
+  if (keyIsDown(randomLeft)) {
+    shipX -= shipSpeed;
+  }
+  if (keyIsDown(randomRight)) {
+    shipX += shipSpeed;
   }
 }
