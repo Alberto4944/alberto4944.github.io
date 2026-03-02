@@ -6,12 +6,8 @@
 
 // RANDOM KEY INPUTS AFTER
 
-let shipX = 250;
-let shipY = 500;
-let shipSpeed = 5;
 let shipSize = 50;
 
-let enemySpeed = 2;
 let enemySize = 25;
 let enemies = [];
 
@@ -22,20 +18,37 @@ let lastHit = -500;
 let randomLeft = 65;
 let randomRight = 68;
 
+let score = 0;
+
+let spawnInterval = 15000;
+let lastSpawn = 0;
+
+// Splits possible keys into left and right havles
+let possibleLeftKeys = [81, 65, 90, 87, 83, 88, 69, 68, 67, 82, 70, 86, 84, 71];
+let possibleRightKeys = [80, 76, 79, 75, 77, 73, 74, 78, 85, 72, 66, 89];
+
 function setup() {
   noStroke();
-  createCanvas(500, 500);
+  createCanvas(windowWidth, windowHeight);
   spawnEnemy();
-  spawnEnemy();
+  shipX = width/2;
+  shipY = height;
+  enemySpeed = height/250;
+  shipSpeed = width/200;
 }
+
 
 function draw() {
   background(221);
   moveShipX();
+  if (millis() - lastSpawn > spawnInterval) {
+    spawnEnemy();
+    lastSpawn = millis();
+    enemySpeed*=1.1;
+  }
   moveEnemies();
   console.log(lives);
-  fill("Red");
-  text("hello", 100, 100);
+  drawText();
 }
 
 function spawnEnemy() {
@@ -61,28 +74,32 @@ function moveEnemies() {
     if (enemies[i].enemyY > height) {
       enemies[i].enemyY = 10;
       enemies[i].enemyX = random(0+enemySize/2, width-enemySize/2);
+      score+=1;
+      console.log(`Score = ${score}`);
     }
   }
 }
 
 function selectRandomKeys() {
-  randomLeft = int(random(65,90));
-  randomRight = int(random(65,90));
-  while (randomLeft === randomRight) {
-    randomRight = int(random(65,90));
-  }
-  console.log("abcdefghijklmnopqrstuvwxyz"[randomLeft- 65] + randomLeft);
-  console.log("abcdefghijklmnopqrstuvwxyz"[randomRight - 65] + randomRight);
-
+  randomLeft = random(possibleLeftKeys);
+  randomRight = random(possibleRightKeys);
 }
 
 function moveShipX() {
   fill("black");
   circle(shipX, shipY, shipSize);
-  if (keyIsDown(randomLeft)) {
+  if (keyIsDown(randomLeft) && shipX > shipSize/2) {
     shipX -= shipSpeed;
   }
-  if (keyIsDown(randomRight)) {
+  if (keyIsDown(randomRight) && shipX < width-shipSize/2) {
     shipX += shipSpeed;
   }
+}
+
+function drawText() {
+  leftKey = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[randomLeft- 65];
+  rightKey = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[randomRight - 65];
+  fill("Red");
+  text(rightKey, 200, 100);
+  text(leftKey, 100, 100);
 }
