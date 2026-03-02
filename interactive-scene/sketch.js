@@ -4,24 +4,21 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-// RANDOM KEY INPUTS AFTER
-
-let shipSize = 50;
-
-let enemySize = 25;
 let enemies = [];
 
 let hitDistance = 50;
-let lives = 3;
+let lives = 5;
 let lastHit = -500;
 
-let randomLeft = 65;
-let randomRight = 68;
+let randomLeft = 65; // Default Left Key = A
+let randomRight = 68; // Default Right Key = D
 
 let score = 0;
 
 let spawnInterval = 15000;
 let lastSpawn = 0;
+
+let mouseWheelLucky = false;
 
 // Splits possible keys into left and right havles
 let possibleLeftKeys = [81, 65, 90, 87, 83, 88, 69, 68, 67, 82, 70, 86, 84, 71];
@@ -33,13 +30,18 @@ function setup() {
   spawnEnemy();
   shipX = width/2;
   shipY = height;
-  enemySpeed = height/250;
-  shipSpeed = width/200;
+  enemySpeed = width/175;
+  shipSpeed = width/175;
+  shipSize = width/20;
+  enemySize = width/35;
+
+
 }
 
 
 function draw() {
   background(221);
+  drawText();
   moveShipX();
   if (millis() - lastSpawn > spawnInterval) {
     spawnEnemy();
@@ -48,7 +50,6 @@ function draw() {
   }
   moveEnemies();
   console.log(lives);
-  drawText();
 }
 
 function spawnEnemy() {
@@ -81,8 +82,17 @@ function moveEnemies() {
 }
 
 function selectRandomKeys() {
-  randomLeft = random(possibleLeftKeys);
-  randomRight = random(possibleRightKeys);
+  choice = int(random(0,5));
+  if (choice === 0) {
+    mouseWheelLucky = true;
+  }
+  else if (mouseWheelLucky) {
+    mouseWheelLucky = !mouseWheelLucky;
+  }
+  else {
+    randomLeft = random(possibleLeftKeys);
+    randomRight = random(possibleRightKeys);
+  }
 }
 
 function moveShipX() {
@@ -99,7 +109,24 @@ function moveShipX() {
 function drawText() {
   leftKey = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[randomLeft- 65];
   rightKey = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[randomRight - 65];
-  fill("Red");
-  text(rightKey, 200, 100);
-  text(leftKey, 100, 100);
+  fill("black");
+  fontSize = width/5;
+  textSize(fontSize);
+  if (mouseWheelLucky) {
+    textSize(width/100);
+    text("YOU GOT LUCKY, USE MOUSE WHEEL", width/2, height/2);
+  }
+  else {
+    text(leftKey, width/8, height/2);
+    text(rightKey, width*7/8-fontSize, height/2);
+  }
+}
+
+function mouseWheel(event) {
+  if (event.delta > 0 && mouseWheelLucky) {
+    shipX-=shipSpeed;
+  }
+  else if (mouseWheelLucky) {
+    shipX+=shipSpeed;
+  }
 }
