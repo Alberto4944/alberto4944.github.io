@@ -34,6 +34,8 @@ function draw() {
   moveShipX();
   moveEnemies();
   console.log(lives);
+  fill("Red");
+  text("hello", 100, 100);
 }
 
 function spawnEnemy() {
