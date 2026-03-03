@@ -18,7 +18,7 @@ let possibleRightKeys = [80, 76, 79, 75, 77, 73, 74, 78, 85, 72, 66, 89];
 function setup() {
   noStroke();
   createCanvas(windowWidth, windowHeight);
-  resetVariables(); // Runs a function to reset all variables (reusalbe)
+  resetVariables();
   spawnEnemy();
   textFont("Courier New");
 }
@@ -144,6 +144,16 @@ function mouseWheel(event) { // If the chance happens, you get to use the mouse 
   }
 }
 
+function mouseClicked() {
+  if (gameState === "start") {
+    gameState = "game";
+  }
+  if (gameState === "end") {
+    gameState = "game";
+    resetVariables();
+  }
+}
+
 // Start Screen
 function startScreen() {
   textSize(width/40);
@@ -154,10 +164,7 @@ function startScreen() {
   The Goal of This Game is to Avoid the Enemies
   BUT, whenever you lose a life, the keys change.
   So, the left key could be Z and the right could be P.
-  HAVE FUN! PRESS ENTER TO BEGIN`, width/2, height/3);
-  if (keyIsDown(13)) {
-    gameState = "game";
-  }
+  HAVE FUN! PRESS LEFT MOUSE BUTTON TO BEGIN`, width/2, height/3);
 }
 
 // END SCREEN
@@ -172,9 +179,5 @@ function endScreen() {
   text(`You Died!
   Your Score is ${score}
   Your High Score is ${highScore}
-  Press Enter to Restart`, width/2, height/3);
-  if (keyIsDown(13)) {
-    resetVariables();
-    gameState = "game";
-  } 
+  Press Left Mouse Button to Restart`, width/2, height/3);
 }
