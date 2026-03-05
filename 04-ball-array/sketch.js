@@ -44,7 +44,7 @@ function draw() {
       ball.x-=5;
     }
     if (dist(width/2, height/2,ball.x,ball.y) < ball.radius+playerRadius && playerRadius > ball.radius) {
-      playerRadius+=(playerRadius-ball.radius)/2;
+      playerRadius+=ball.radius/2;
       ballArray.splice(ballArray.indexOf(ball), 1);
     }
   }
