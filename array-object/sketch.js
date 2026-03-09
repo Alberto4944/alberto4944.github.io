@@ -6,7 +6,7 @@
 // - describe what you did to take this project "above and beyond"
 
 // Plan: Use ML5 to make a math game, where you have to put up a certain number of fingers to different questions (webcam)
-
+// This below is the default ml5 code, just to get a feeling of what it will feel like. In the end though, it will have hand detection (numbers from 1-10) and other stuff to make it a cool game.
 let handPose;
 let video;
 let hands = [];
