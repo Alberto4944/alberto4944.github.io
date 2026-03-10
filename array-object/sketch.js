@@ -29,23 +29,44 @@ function setup() {
 }
 
 function draw() {
-  background(220);
   image(video,0,0,width,height);
 
-  for (let i = 0; i < hands.length; i++) {
-    let hand = hands[i];
-    for (let j = 0; j < hand.keypoints.length; j++) {
-      let keypoint = hand.keypoints[j];
-      fill(0,255,0);
-      noStroke;
-      circle(keypoint.x, keypoint.y, 10);
+  if (hands.length > 0) {
+    let hand = hands[0];
+    let pointsArray = [hand.index_finger_tip, hand.index_finger_dip, hand.index_finger_pip, hand.index_finger_mcp];
+    noStroke();
+    fill(255,0,0);
+    for (point of pointsArray) {
+      circle(point.x, point.y, 16);
+      
     }
+    writeText(calculateAverage(pointsArray));
   }
-  detectOne();
 }
 
-function detectOne() {
-  let hand = hands[0];
-  let index_point = hand.index_finger_tip;
-  console.log(index_point);
+function calculateAverage(pointsArray) {
+  let average = 0;
+  for (point of pointsArray) {
+    average += point.x;
+  }
+  average = average/pointsArray.length;
+  return checkOne(average, pointsArray);
+}
+
+function checkOne(average, pointsArray) {
+  let isOne = false;
+  for (point of pointsArray) {
+    if (point.x < average + 5 && point.x > average - 5) {
+      return "ONE";
+    }
+    else {
+      return "";
+    }
+  }
+}
+
+function writeText(state) {
+  fill("black");
+  textSize(40);
+  text(`${state}`, width*0.8, height*0.95);
 }
