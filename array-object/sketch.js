@@ -11,7 +11,7 @@ let handPose;
 let video;
 let hands = [];
 
-let straightLineSize = 0.05;
+let straightLineSize = 0.25;
 
 function preload() {
   handPose = ml5.handPose();
@@ -21,67 +21,67 @@ function gotHands(results) {
   hands = results;
 }
 
-let thePoints = [
-  {
-    x: 20,
-    y: 40
-  },
-  {
-    x: 20,
-    y: 40
-  },
-  {
-    x: 20,
-    y: 40
-  }
-];
-
 function setup() {
-  // createCanvas(640, 480);
-  // video = createCapture(VIDEO);
-  // video.size(640, 480);
-  // video.hide();
+  createCanvas(640, 480);
+  video = createCapture(VIDEO);
+  video.size(640, 480);
+  video.hide();
 
-  // handPose.detectStart(video, gotHands);
-  console.log(isStraight(thePoints));
+  handPose.detectStart(video, gotHands);
 }
-
 
 function draw() {
-  // image(video,0,0,width,height);
+  image(video,0,0,width,height);
 
-  // if (hands.length > 0) {
-  //   let hand = hands[0];
-  //   let pointsArray = [hand.index_finger_tip, hand.index_finger_dip, hand.index_finger_pip, hand.index_finger_mcp];
-  //   noStroke();
-  //   fill(255,0,0);
-  //   for (point of pointsArray) {
-  //     circle(point.x, point.y, 16);
-      
-  //   }
-  //   writeText(calculateAverage(pointsArray));
-  // }
-}
+  if (hands.length > 0) {
+    let hand = hands[0];
 
+    let thumbPoints = [hand.thumb_mcp, hand.thumb_ip, hand.thumb_tip];
+    let indexPoints = [hand.index_finger_dip, hand.index_finger_pip, hand.index_finger_tip];
+    let middlePoints = [hand.middle_finger_pip, hand.middle_finger_dip, hand.middle_finger_tip];
+    let ringPoints = [hand.ring_finger_pip, hand.ring_finger_dip, hand.ring_finger_tip];
+    let pinkyPoints = [hand.pinky_finger_pip, hand.pinky_finger_dip, hand.pinky_finger_tip];
 
+    let thumb = isStraight(thumbPoints);
+    let index = isStraight(indexPoints);
+    let middle = isStraight(middlePoints);
+    let ring = isStraight(ringPoints);
+    let pinky = isStraight(pinkyPoints);
 
-function calculateAverage(pointsArray) {
-  let average = 0;
-  for (point of pointsArray) {
-    average += point.x;
-  }
-  average = average/pointsArray.length;
-  return checkOne(average, pointsArray);
-}
-
-function checkOne(average, pointsArray) {
-  for (point of pointsArray) {
-    if (point.x < average + 5 && point.x > average - 5) {
-      return "ONE";
+    noStroke();
+    fill(255,0,0);
+    for (point of thumbPoints) {
+      circle(point.x, point.y, 16);
     }
-    else {
-      return "";
+    for (point of indexPoints) {
+      circle(point.x, point.y, 16);
     }
+    for (point of middlePoints) {
+      circle(point.x, point.y, 16);
+    }
+    for (point of ringPoints) {
+      circle(point.x, point.y, 16);
+    }
+    for (point of pinkyPoints) {
+      circle(point.x, point.y, 16);
+    }
+    
+    if (!thumb && index && !middle && !ring && !pinky) {
+      console.log("1");
+    }
+    else if (!thumb && index && middle && !ring && !pinky) {
+      console.log("2");
+    }
+    else if (!thumb && index && middle && ring && !pinky) {
+      console.log("3");
+    }
+    else if (!thumb && index && middle && ring && pinky) {
+      console.log("4");
+    }
+    else if (thumb && index && middle && ring && pinky) {
+      console.log("5");
+    }
+
   }
 }
 
@@ -94,9 +94,9 @@ function writeText(state) {
 function isStraight(points) {
   let firstPoint = [points[0].x, points[0].y];
   let secondPoint = [points[1].x, points[1].y];
-  let slope = (secondPoint[1] - firstPoint[1]) / (secondPoint[0] - firstPoint[0]);
+  let slope = abs((secondPoint[0] - firstPoint[0]) / (secondPoint[1] - firstPoint[1]));
   for (let i = 2; i < points.length; i++) {
-    newSlope = (points[i].y - firstPoint[1]) / (points[i].x - firstPoint[0]);
+    newSlope = (points[i].x - firstPoint[0]) / (points[i].y - firstPoint[1]);
     if (abs(newSlope-slope) > straightLineSize) {
       return false;
     }
