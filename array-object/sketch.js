@@ -10,8 +10,10 @@
 let handPose;
 let video;
 let hands = [];
+let theNumber = 0;
 
-let straightLineSize = 0.25;
+let straightLineSize = 0.3;
+let minimumDistance = 25;
 
 function preload() {
   handPose = ml5.handPose();
@@ -32,21 +34,17 @@ function setup() {
 
 function draw() {
   image(video,0,0,width,height);
-
+  writeText();
   if (hands.length > 0) {
     let hand = hands[0];
 
-    let thumbPoints = [hand.thumb_mcp, hand.thumb_ip, hand.thumb_tip];
-    let indexPoints = [hand.index_finger_dip, hand.index_finger_pip, hand.index_finger_tip];
-    let middlePoints = [hand.middle_finger_pip, hand.middle_finger_dip, hand.middle_finger_tip];
-    let ringPoints = [hand.ring_finger_pip, hand.ring_finger_dip, hand.ring_finger_tip];
+    let thumbPoints = [hand.thumb_cmc, hand.thumb_mcp, hand.thumb_ip, hand.thumb_tip];
+    let indexPoints = [hand.index_finger_mcp, hand.index_finger_dip, hand.index_finger_pip, hand.index_finger_tip];
+    let middlePoints = [hand.middle_finger_mcp, hand.middle_finger_pip, hand.middle_finger_dip, hand.middle_finger_tip];
+    let ringPoints = [hand.ring_finger_mcp, hand.ring_finger_pip, hand.ring_finger_dip, hand.ring_finger_tip];
     let pinkyPoints = [hand.pinky_finger_pip, hand.pinky_finger_dip, hand.pinky_finger_tip];
 
-    let thumb = isStraight(thumbPoints);
-    let index = isStraight(indexPoints);
-    let middle = isStraight(middlePoints);
-    let ring = isStraight(ringPoints);
-    let pinky = isStraight(pinkyPoints);
+    
 
     noStroke();
     fill(255,0,0);
@@ -66,38 +64,76 @@ function draw() {
       circle(point.x, point.y, 16);
     }
     
-    if (!thumb && index && !middle && !ring && !pinky) {
-      console.log("1");
+    // if (index && !middle && !ring) {
+    //   theNumber = 1;
+    // }
+    // else if (index && middle && !ring) {
+    //   theNumber = 2;
+    // }
+    // else if(index && middle && ring) {
+    //   theNumber = 3;
+    // }
+    // else {
+    //   theNumber = 0;
+    // }
+    thumb = isStraight(thumbPoints);
+    index = isStraight(indexPoints);
+    middle = isStraight(middlePoints);
+    ring = isStraight(ringPoints);
+    pinky = isStraight(pinkyPoints);
+
+    if (thumb && index && middle && ring && pinky) {
+      theNumber = 5;
     }
-    else if (!thumb && index && middle && !ring && !pinky) {
-      console.log("2");
+    else if (index && middle && ring && pinky) {
+      theNumber = 4;
     }
-    else if (!thumb && index && middle && ring && !pinky) {
-      console.log("3");
+    else if (index && middle && ring) {
+      theNumber = 3;
     }
-    else if (!thumb && index && middle && ring && pinky) {
-      console.log("4");
+    else if (index && middle) {
+      theNumber = 2;
     }
-    else if (thumb && index && middle && ring && pinky) {
-      console.log("5");
+    else if (index) {
+      theNumber = 1;
+    }
+    // if (!thumb && index && !middle && !ring && !pinky) {
+    //   theNumber = 1;
+    // }
+    // else if (!thumb && index && middle && !ring && !pinky) {
+    //   theNumber = 2;
+    // }
+    // else if (!thumb && index && middle && ring && !pinky) {
+    //   theNumber = 3;
+    // }
+    // else if (!thumb && index && middle && ring && pinky) {
+    //   theNumber = 4;
+    // }
+    // else if (thumb && index && middle && ring && pinky) {
+    //   theNumber = 5;
+    // }
+    else {
+      theNumber = 0;
     }
 
   }
 }
 
-function writeText(state) {
+function writeText() {
   fill("black");
-  textSize(40);
-  text(`${state}`, width*0.8, height*0.95);
+  textSize(50);
+  text(`${theNumber}`, width*0.8, height*0.95);
 }
 
 function isStraight(points) {
   let firstPoint = [points[0].x, points[0].y];
   let secondPoint = [points[1].x, points[1].y];
   let slope = abs((secondPoint[0] - firstPoint[0]) / (secondPoint[1] - firstPoint[1]));
+  // console.log(`Slope: ${slope}`);
   for (let i = 2; i < points.length; i++) {
-    newSlope = (points[i].x - firstPoint[0]) / (points[i].y - firstPoint[1]);
-    if (abs(newSlope-slope) > straightLineSize) {
+    newSlope = abs((points[i].x - firstPoint[0]) / (points[i].y - firstPoint[1]));
+    // console.log(`Difference: ${abs(newSlope-slope)}`);
+    if (abs(newSlope-slope) > straightLineSize || dist(firstPoint[0], firstPoint[1], points[i].x, points[i].y) < minimumDistance) {
       return false;
     }
   }
