@@ -44,8 +44,6 @@ function draw() {
     let ringPoints = [hand.ring_finger_mcp, hand.ring_finger_pip, hand.ring_finger_dip, hand.ring_finger_tip];
     let pinkyPoints = [hand.pinky_finger_pip, hand.pinky_finger_dip, hand.pinky_finger_tip];
 
-    
-
     noStroke();
     fill(255,0,0);
     for (point of thumbPoints) {
@@ -64,18 +62,6 @@ function draw() {
       circle(point.x, point.y, 16);
     }
     
-    // if (index && !middle && !ring) {
-    //   theNumber = 1;
-    // }
-    // else if (index && middle && !ring) {
-    //   theNumber = 2;
-    // }
-    // else if(index && middle && ring) {
-    //   theNumber = 3;
-    // }
-    // else {
-    //   theNumber = 0;
-    // }
     thumb = isStraight(thumbPoints);
     index = isStraight(indexPoints);
     middle = isStraight(middlePoints);
@@ -97,25 +83,9 @@ function draw() {
     else if (index) {
       theNumber = 1;
     }
-    // if (!thumb && index && !middle && !ring && !pinky) {
-    //   theNumber = 1;
-    // }
-    // else if (!thumb && index && middle && !ring && !pinky) {
-    //   theNumber = 2;
-    // }
-    // else if (!thumb && index && middle && ring && !pinky) {
-    //   theNumber = 3;
-    // }
-    // else if (!thumb && index && middle && ring && pinky) {
-    //   theNumber = 4;
-    // }
-    // else if (thumb && index && middle && ring && pinky) {
-    //   theNumber = 5;
-    // }
     else {
       theNumber = 0;
     }
-
   }
 }
 
