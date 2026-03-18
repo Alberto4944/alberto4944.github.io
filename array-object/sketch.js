@@ -39,7 +39,7 @@ function draw() {
 }
 
 function writeText() {
-  fill("black");
+  fill("white");
   textSize(50);
   text(`${theNumber}`, width*0.8, height*0.95);
 }
