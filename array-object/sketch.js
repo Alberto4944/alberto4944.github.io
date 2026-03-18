@@ -13,7 +13,7 @@ let hands = [];
 let theNumber = 0;
 
 let straightLineSize = 0.25;
-let minimumDistance = 25;
+let minimumDistance = 20;
 
 function preload() {
   handPose = ml5.handPose();
@@ -24,9 +24,9 @@ function gotHands(results) {
 }
 
 function setup() {
-  createCanvas(640, 480);
+  createCanvas(windowWidth, windowHeight);
   video = createCapture(VIDEO);
-  video.size(640, 480);
+  video.size(width, height);
   video.hide();
 
   handPose.detectStart(video, gotHands);
