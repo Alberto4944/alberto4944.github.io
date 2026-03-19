@@ -4,6 +4,7 @@
 //
 // Extra for Experts:
 // I used the ML5 library to track the points on the hand. This is a side-project to my Research Methods 20 class where I am researching how we can use AI and ML in table tennis coaching/training. 
+// Another detail: I adjusted it so you can hold up any finger to make 1-5 and it will track correctly. I coded it so it will just analyse how many fingers are upright.
 
 let handPose;
 let video;
