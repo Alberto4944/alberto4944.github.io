@@ -17,7 +17,6 @@ let rows;
 let cols;
 let grid;
 
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
   rows = Math.floor(height/CELL_SIZE);
@@ -38,7 +37,6 @@ function keyPressed() {
     grid = generateEmptyGrid(cols, rows);
   }
 }
-
 
 function displayGrid() {
   for (let y = 0; y < rows; y++) {
@@ -91,4 +89,13 @@ function generateEmptyGrid(cols, rows) {
     }
   }
   return newGrid;
+}
+
+function checkIfValid() {
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      neighbours = 0;
+      for (let side = 0; side < rows; )
+        for (let up = 0; up < cols; )
+          if (grid[side][up] === grid[y][x])
 }
