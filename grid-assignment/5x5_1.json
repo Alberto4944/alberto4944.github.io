@@ -1,0 +1,37 @@
+[
+  [
+    "MULTIPLY",
+    "DIVIDE",
+    "MULTIPLY",
+    "MULTIPLY",
+    "MULTIPLY"
+  ],
+  [
+    "MULTIPLY",
+    "DIVIDE",
+    "MINUS",
+    "MINUS",
+    "MULTIPLY"
+  ],
+  [
+    "MINUS",
+    "MINUS",
+    "MINUS",
+    "MINUS",
+    "MULTIPLY"
+  ],
+  [
+    "MINUS",
+    "MINUS",
+    "MINUS",
+    "MINUS",
+    "MULTIPLY"
+  ],
+  [
+    "DIVIDE",
+    "ADD",
+    "ADD",
+    "MULTIPLY",
+    "MULTIPLY"
+  ]
+]

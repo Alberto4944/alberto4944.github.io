@@ -7,22 +7,22 @@
 
 // 2d rectangular operationGrid demo
 
-const ADD_SQUARE = "ADD";
-const MINUS_SQUARE = "MINUS";
-const MULTIPLY_SQUARE = "MULTIPLY";
-const DIVIDE_SQUARE = "DIVIDE";
+const ADD_SQUARE = "ADD"; // Pink
+const MINUS_SQUARE = "MINUS"; // BLue
+const MULTIPLY_SQUARE = "MULTIPLY"; // orange
+const DIVIDE_SQUARE = "DIVIDE"; // Green
 
 const CELL_SIZE = 100;
-let rows = 5;
-let cols = 5;
+let sides = 5;
 let operationGrid;
 let numberGrid;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  // rows = Math.floor(height/CELL_SIZE);
-  // cols = Math.floor(width/CELL_SIZE);
-  operationGrid = generateRandomGrid(cols, rows);
+  // sides = Math.floor(height/CELL_SIZE);
+  // sides = Math.floor(width/CELL_SIZE);
+  operationGrid = generateRandomGrid(sides);
+  numberGrid = generateEmptyGrid(sides, 0);
 }
 
 function draw() {
@@ -33,17 +33,17 @@ function draw() {
 
 function keyPressed() {
   if (key === "r") {
-    operationGrid = generateRandomGrid(cols, rows);
+    operationGrid = generateRandomGrid(sides, sides);
     // findOthers(1,1);
   }
   else if (key === "e") {
-    operationGrid = generateEmptyGrid(cols, rows);
+    operationGrid = generateEmptyGrid(sides, sides, ADD_SQUARE);
   }
 }
 
 function displayGrid() {
-  for (let y = 0; y < rows; y++) {
-    for (let x = 0; x < cols; x++) {
+  for (let y = 0; y < sides; y++) {
+    for (let x = 0; x < sides; x++) {
       if (operationGrid[y][x] === ADD_SQUARE) {
         fill(244, 137, 137);
       }
@@ -57,15 +57,18 @@ function displayGrid() {
         fill("green");
       }
       square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
+      fill('black');
+      textSize(50);
+      text(`${numberGrid[y][x]}`, x * CELL_SIZE, y * CELL_SIZE + CELL_SIZE);
     }
   }
 }
 
-function generateRandomGrid(cols, rows) {
+function generateRandomGrid(sides) {
   let newGrid = [];
-  for (let y = 0; y < rows; y++) {
+  for (let y = 0; y < sides; y++) {
     newGrid.push([]);
-    for (let x = 0; x < cols; x++) {
+    for (let x = 0; x < sides; x++) {
       let randomNumber = random(100);
       if (randomNumber > 75) {
         newGrid[y].push(ADD_SQUARE);
@@ -84,12 +87,12 @@ function generateRandomGrid(cols, rows) {
   return newGrid;
 }
 
-function generateEmptyGrid(cols, rows) {
+function generateEmptyGrid(sides, emptySpace) {
   let newGrid = [];
-  for (let y = 0; y < rows; y++) {
+  for (let y = 0; y < sides; y++) {
     newGrid.push([]);
-    for (let x = 0; x < cols; x++) {
-      newGrid[y].push(ADD_SQUARE);
+    for (let x = 0; x < sides; x++) {
+      newGrid[y].push(emptySpace);
     }
   }
   return newGrid;
@@ -97,15 +100,10 @@ function generateEmptyGrid(cols, rows) {
 
 function findOthers(x,y) {
   // Choose direction for the math to go
-  if (x > 0 && x < cols && y > 0 && y < rows) {
+  if (x > 0 && x < sides && y > 0 && y < sides) {
     let direction = Math.floor(random(0,5)); // 0 = North, 1 = East, 2 = South, 3 = West, 4 = Solo
     console.log(direction);
   }
-
-  // if (direction === 2) {
-
-  // }
-  // else if (x === 0 && direction === 3 || x === cols && direction === 1 || y === 0 && direction === 0 || y === rows && direction)
 }
 
 function mousePressed() {
@@ -113,12 +111,13 @@ function mousePressed() {
   let y = Math.floor(mouseY/CELL_SIZE);
   console.log(x);
   //self
-  toggleCell(x, y);
+  // toggleCell(x, y);
+  changeNumber(x,y);
 }
 
 function toggleCell(x, y) {
   //make sure the cell you're toggling is in the operationGrid
-  if (x >= 0 && x < cols && y >= 0 && y < rows) {
+  if (x >= 0 && x < sides && y >= 0 && y < sides) {
     if (operationGrid[y][x] === ADD_SQUARE) {
       operationGrid[y][x] = MINUS_SQUARE;
     }
@@ -130,6 +129,17 @@ function toggleCell(x, y) {
     }
     else {
       operationGrid[y][x] = ADD_SQUARE;
+    }
+  }
+}
+
+function changeNumber(x,y) {
+  if (x >= 0 && x < sides && y >= 0 && y < sides) {
+    if (numberGrid[y][x] === sides) {
+      numberGrid[y][x] = 0;
+    }
+    else {
+      numberGrid[y][x]++;
     }
   }
 }
