@@ -1,19 +1,19 @@
 [
   [
     {
-      "operation": "Add",
-      "number": 0,
+      "operation": "ADD",
+      "number": 6,
+      "neighbours": "W"
+    },
+    {
+      "operation": "MINUS",
+      "number": 6,
       "neighbours": ""
     },
     {
       "operation": "",
       "number": 0,
-      "neighbours": ""
-    },
-    {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
+      "neighbours": "W"
     },
     {
       "operation": "",
@@ -28,14 +28,14 @@
   ],
   [
     {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
+      "operation": "ADD",
+      "number": 6,
+      "neighbours": "N"
     },
     {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
+      "operation": "ADD",
+      "number": 6,
+      "neighbours": "W"
     },
     {
       "operation": "",

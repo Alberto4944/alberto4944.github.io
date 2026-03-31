@@ -19,8 +19,11 @@ let operationGrid;
 let numberGrid;
 let objectGrid;
 
+const BORDER = 5;
+
 function preload() {
   firstFive = loadJSON("5x5_1.json");
+  objectGrid = loadJSON("objectGrid.json");
 }
 
 function setup() {
@@ -29,7 +32,7 @@ function setup() {
   // sides = Math.floor(width/CELL_SIZE);
   operationGrid = generateRandomGrid(sides);
   numberGrid = generateEmptyGrid(sides, 0);
-  objectGrid = generateObjects();
+  //objectGrid = generateObjects();
 }
 
 function draw() {
@@ -56,17 +59,27 @@ function displayGrid() {
     for (let x = 0; x < sides; x++) {
       if (objectGrid[y][x].operation === ADD_SQUARE) {
         fill(244, 137, 137);
+        strokeWeight(5);
+        if (objectGrid[y][x].neighbours !== "") {
+          strokeWeight(1);
+        }
         square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
         fill('black');
         textSize(50);
         text(`${objectGrid[y][x].number}+`, x * CELL_SIZE, y * CELL_SIZE + CELL_SIZE);
       }
       else if (objectGrid[y][x].operation === MINUS_SQUARE) {
-        fill("blue");
+        //fill("blue");
+        fill("teal");
+        strokeWeight(5);
+        if (objectGrid[y][x].neighbours !== "") {
+          strokeWeight(1);
+        }
         square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
         fill('black');
         textSize(50);
         text(`${objectGrid[y][x].number}-`, x * CELL_SIZE, y * CELL_SIZE + CELL_SIZE);
+        
       }
       else if (objectGrid[y][x].operation === MULTIPLY_SQUARE) {
         fill("orange");
