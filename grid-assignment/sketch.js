@@ -47,7 +47,8 @@ function keyPressed() {
     // findOthers(1,1);
   }
   else if (key === "e") {
-    operationGrid = generateEmptyGrid(sides, sides, ADD_SQUARE);
+    console.log("PRESSED E");
+    objectGrid = generateObjects();
   }
   else if (key === "g") {
     operationGrid = firstFive;
@@ -57,12 +58,26 @@ function keyPressed() {
 function displayGrid() {
   for (let y = 0; y < sides; y++) {
     for (let x = 0; x < sides; x++) {
+
+      if (y < sides-1 && objectGrid[y][x].number !== objectGrid[y+1][x].number && objectGrid[y][x].operation !== objectGrid[y+1][x].operation) {
+        strokeWeight(BORDER);
+        line(x*CELL_SIZE, y*CELL_SIZE, x*CELL_SIZE, (y+1)*CELL_SIZE);
+      }
+      if (x > 0 && objectGrid[y][x].number !== objectGrid[y][x-1].number && objectGrid[y][x].operation !== objectGrid[y][x-1].operation) {
+        strokeWeight(BORDER);
+        line(x*CELL_SIZE, y*CELL_SIZE, x*CELL_SIZE, (y+1)*CELL_SIZE);
+      }
+      if (y < sides-1 && objectGrid[y][x].number !== objectGrid[y+1][x].number && objectGrid[y][x].operation !== objectGrid[y+1][x].operation) {
+        strokeWeight(BORDER);
+        line(x*CELL_SIZE, (y+1)*CELL_SIZE, (x+1)*CELL_SIZE, (y+1)*CELL_SIZE);
+      }
+      if (y > 0 && objectGrid[y][x].number !== objectGrid[y-1][x].number && objectGrid[y][x].operation !== objectGrid[y-1][x].operation) {
+        strokeWeight(BORDER);
+        line(x*CELL_SIZE, (y-1)*CELL_SIZE, (x+1)*CELL_SIZE, (y-1)*CELL_SIZE);
+      }
       if (objectGrid[y][x].operation === ADD_SQUARE) {
         fill(244, 137, 137);
-        strokeWeight(5);
-        if (objectGrid[y][x].neighbours !== "") {
-          strokeWeight(1);
-        }
+        strokeWeight(0);
         square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
         fill('black');
         textSize(50);
@@ -71,15 +86,11 @@ function displayGrid() {
       else if (objectGrid[y][x].operation === MINUS_SQUARE) {
         //fill("blue");
         fill("teal");
-        strokeWeight(5);
-        if (objectGrid[y][x].neighbours !== "") {
-          strokeWeight(1);
-        }
+        strokeWeight(0);
         square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
         fill('black');
         textSize(50);
         text(`${objectGrid[y][x].number}-`, x * CELL_SIZE, y * CELL_SIZE + CELL_SIZE);
-        
       }
       else if (objectGrid[y][x].operation === MULTIPLY_SQUARE) {
         fill("orange");
@@ -159,7 +170,7 @@ function mousePressed() {
 function toggleCell(x, y) {
   //make sure the cell you're toggling is in the objectGrid
   if (x >= 0 && x < sides && y >= 0 && y < sides) {
-    if (operationGrid[y][x] === SOLO_SQUARE) {
+    if (objectGrid[y][x].operation === SOLO_SQUARE) {
       objectGrid[y][x].operation = MINUS_SQUARE;
     }
     else if (objectGrid[y][x].operation === MINUS_SQUARE) {
@@ -196,7 +207,7 @@ function generateObjects() {
     newArray.push([]);
     for (let x = 0; x < sides; x++) {
       newArray[y].push({
-        operation: "",
+        operation: SOLO_SQUARE,
         number: 0,
         neighbours: ""
       });

@@ -3,26 +3,26 @@
     {
       "operation": "ADD",
       "number": 6,
-      "neighbours": "W"
+      "neighbours": ""
     },
     {
       "operation": "MINUS",
+      "number": 3,
+      "neighbours": ""
+    },
+    {
+      "operation": "ADD",
       "number": 6,
       "neighbours": ""
     },
     {
-      "operation": "",
-      "number": 0,
-      "neighbours": "W"
-    },
-    {
-      "operation": "",
-      "number": 0,
+      "operation": "ADD",
+      "number": 6,
       "neighbours": ""
     },
     {
-      "operation": "",
-      "number": 0,
+      "operation": "ADD",
+      "number": 6,
       "neighbours": ""
     }
   ],
@@ -33,34 +33,34 @@
       "neighbours": "N"
     },
     {
+      "operation": "MINUS",
+      "number": 3,
+      "neighbours": ""
+    },
+    {
+      "operation": "MINUS",
+      "number": 0,
+      "neighbours": ""
+    },
+    {
+      "operation": "MINUS",
+      "number": 0,
+      "neighbours": ""
+    },
+    {
       "operation": "ADD",
-      "number": 6,
-      "neighbours": "W"
-    },
-    {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
-    },
-    {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
-    },
-    {
-      "operation": "",
       "number": 0,
       "neighbours": ""
     }
   ],
   [
     {
-      "operation": "",
+      "operation": "ADD",
       "number": 0,
       "neighbours": ""
     },
     {
-      "operation": "",
+      "operation": "MINUS",
       "number": 0,
       "neighbours": ""
     },
