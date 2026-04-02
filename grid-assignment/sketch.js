@@ -19,7 +19,7 @@ let operationGrid;
 let numberGrid;
 let objectGrid;
 
-const BORDER = 5;
+const BORDER = 10;
 
 function preload() {
   firstFive = loadJSON("5x5_1.json");
@@ -58,23 +58,31 @@ function keyPressed() {
 function displayGrid() {
   for (let y = 0; y < sides; y++) {
     for (let x = 0; x < sides; x++) {
+      console.log("DOING STUFF");
+      // Line for right side
+      // if (x < sides-1 && (objectGrid[y][x].number !== objectGrid[y][x+1].number || objectGrid[y][x].operation !== objectGrid[y][x+1].operation)) {
+      //   strokeWeight(BORDER);
+      //   line((x+1)*CELL_SIZE, y*CELL_SIZE, (x+1)*CELL_SIZE, (y+1)*CELL_SIZE);
+      //   console.log(`Right line at ${x}, ${y}`)
+      // }
 
-      if (y < sides-1 && objectGrid[y][x].number !== objectGrid[y+1][x].number && objectGrid[y][x].operation !== objectGrid[y+1][x].operation) {
-        strokeWeight(BORDER);
-        line(x*CELL_SIZE, y*CELL_SIZE, x*CELL_SIZE, (y+1)*CELL_SIZE);
-      }
-      if (x > 0 && objectGrid[y][x].number !== objectGrid[y][x-1].number && objectGrid[y][x].operation !== objectGrid[y][x-1].operation) {
-        strokeWeight(BORDER);
-        line(x*CELL_SIZE, y*CELL_SIZE, x*CELL_SIZE, (y+1)*CELL_SIZE);
-      }
-      if (y < sides-1 && objectGrid[y][x].number !== objectGrid[y+1][x].number && objectGrid[y][x].operation !== objectGrid[y+1][x].operation) {
-        strokeWeight(BORDER);
-        line(x*CELL_SIZE, (y+1)*CELL_SIZE, (x+1)*CELL_SIZE, (y+1)*CELL_SIZE);
-      }
-      if (y > 0 && objectGrid[y][x].number !== objectGrid[y-1][x].number && objectGrid[y][x].operation !== objectGrid[y-1][x].operation) {
-        strokeWeight(BORDER);
-        line(x*CELL_SIZE, (y-1)*CELL_SIZE, (x+1)*CELL_SIZE, (y-1)*CELL_SIZE);
-      }
+      // Line for below
+      // if (y < sides-1 && objectGrid[y][x].number !== objectGrid[y+1][x].number && objectGrid[y][x].operation !== objectGrid[y+1][x].operation) {
+      //   strokeWeight(BORDER);
+      //   line(x*CELL_SIZE, (y+1)*CELL_SIZE, (x+1)*CELL_SIZE, (y+1)*CELL_SIZE);
+      // }
+
+      // // Line for left side
+      // if (x > 0 && objectGrid[y][x].number !== objectGrid[y][x-1].number && objectGrid[y][x].operation !== objectGrid[y][x-1].operation) {
+      //   strokeWeight(BORDER);
+      //   line(x*CELL_SIZE, (y+1)*CELL_SIZE, x*CELL_SIZE, y*CELL_SIZE);
+      // }
+
+      // // Line for above
+      // if (y > 0 && objectGrid[y][x].number !== objectGrid[y-1][x].number && objectGrid[y][x].operation !== objectGrid[y-1][x].operation) {
+      //   strokeWeight(BORDER);
+      //   line(x*CELL_SIZE, (y+1)*CELL_SIZE, (x+1)*CELL_SIZE, (y+1)*CELL_SIZE);
+      // }
       if (objectGrid[y][x].operation === ADD_SQUARE) {
         fill(244, 137, 137);
         strokeWeight(0);
@@ -94,6 +102,7 @@ function displayGrid() {
       }
       else if (objectGrid[y][x].operation === MULTIPLY_SQUARE) {
         fill("orange");
+        strokeWeight(0);
         square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
         fill('black');
         textSize(50);
@@ -101,6 +110,7 @@ function displayGrid() {
       }
       else if (objectGrid[y][x].operation === DIVIDE_SQUARE) {
         fill("green");
+        strokeWeight(0);
         square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
         fill('black');
         textSize(50);
@@ -108,6 +118,7 @@ function displayGrid() {
       }
       else if (objectGrid[y][x].operation === SOLO_SQUARE) {
         fill("white");
+        strokeWeight(0);
         square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
         fill('black');
         textSize(50);
@@ -185,6 +196,8 @@ function toggleCell(x, y) {
     else if (objectGrid[y][x].operation === ADD_SQUARE) {
       objectGrid[y][x].operation = SOLO_SQUARE;
     }
+    // console.log(objectGrid[y+1][x]);
+    // console.log(objectGrid[y][x+1]);
   }
 }
 
@@ -207,7 +220,7 @@ function generateObjects() {
     newArray.push([]);
     for (let x = 0; x < sides; x++) {
       newArray[y].push({
-        operation: SOLO_SQUARE,
+        operation: "SOLO",
         number: 0,
         neighbours: ""
       });

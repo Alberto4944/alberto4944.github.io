@@ -30,7 +30,7 @@
     {
       "operation": "ADD",
       "number": 6,
-      "neighbours": "N"
+      "neighbours": ""
     },
     {
       "operation": "MINUS",
