@@ -3,135 +3,135 @@
     {
       "operation": "MINUS",
       "number": 2,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "MINUS",
       "number": 2,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "ADD",
       "number": 9,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "ADD",
       "number": 9,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "DIVIDE",
       "number": 2,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     }
   ],
   [
     {
       "operation": "MINUS",
       "number": 4,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "MULTIPLY",
       "number": 6,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "MULTIPLY",
       "number": 12,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "MULTIPLY",
       "number": 12,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "DIVIDE",
       "number": 2,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     }
   ],
   [
     {
       "operation": "MINUS",
       "number": 4,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "MULTIPLY",
       "number": 6,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "MULTIPLY",
       "number": 12,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "ADD",
       "number": 8,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "ADD",
       "number": 8,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     }
   ],
   [
     {
       "operation": "MULTIPLY",
       "number": 160,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "MULTIPLY",
       "number": 160,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "ADD",
       "number": 5,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "ADD",
       "number": 8,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "SOLO",
       "number": 3,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     }
   ],
   [
     {
       "operation": "MULTIPLY",
       "number": 160,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "MULTIPLY",
       "number": 160,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "ADD",
       "number": 5,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "MINUS",
       "number": 4,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     },
     {
       "operation": "MINUS",
       "number": 4,
-      "neighbours": ""
+      "guessedNumber": "Blank"
     }
   ]
 ]
