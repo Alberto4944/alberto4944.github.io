@@ -40,6 +40,10 @@ function keyPressed() {
   if (key === "e") {
     console.log("PRESSED E");
     objectGrid = generateObjects();
+    selectedCell = {
+      x: -1,
+      y: -1
+    };
   }
   else if (key === "g") {
     objectGrid = structuredClone(first5x5); 
@@ -65,6 +69,7 @@ function displayGrid() {
   let totalGridSize = sides * CELL_SIZE;
   let offsetX = (width - totalGridSize) / 2;
   let offsetY = (height - totalGridSize) / 2;
+  push();
   translate(offsetX, offsetY);
 
   for (let y = 0; y < sides; y++) {
@@ -225,12 +230,15 @@ function drawSelectedTile() {
     square(selectedCell.x * CELL_SIZE, selectedCell.y * CELL_SIZE, CELL_SIZE);
     stroke("black");
   }
+  pop();
 }
 
 function checkIfWon() {
   if (compareArrays()) {
     textSize(100);
-    text("YAYYYYY", 100, 100);
+    textAlign(CENTER);
+    text("YOU WON!", width/2, 100);
+    textAlign(LEFT);
   }
 }
 
