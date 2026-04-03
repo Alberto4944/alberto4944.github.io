@@ -1,136 +1,136 @@
 [
   [
     {
-      "operation": "ADD",
-      "number": 6,
+      "operation": "MINUS",
+      "number": 2,
       "neighbours": ""
     },
     {
       "operation": "MINUS",
+      "number": 2,
+      "neighbours": ""
+    },
+    {
+      "operation": "ADD",
+      "number": 9,
+      "neighbours": ""
+    },
+    {
+      "operation": "ADD",
+      "number": 9,
+      "neighbours": ""
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 2,
+      "neighbours": ""
+    }
+  ],
+  [
+    {
+      "operation": "MINUS",
+      "number": 4,
+      "neighbours": ""
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 6,
+      "neighbours": ""
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 12,
+      "neighbours": ""
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 12,
+      "neighbours": ""
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 2,
+      "neighbours": ""
+    }
+  ],
+  [
+    {
+      "operation": "MINUS",
+      "number": 4,
+      "neighbours": ""
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 6,
+      "neighbours": ""
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 12,
+      "neighbours": ""
+    },
+    {
+      "operation": "ADD",
+      "number": 8,
+      "neighbours": ""
+    },
+    {
+      "operation": "ADD",
+      "number": 8,
+      "neighbours": ""
+    }
+  ],
+  [
+    {
+      "operation": "MULTIPLY",
+      "number": 160,
+      "neighbours": ""
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 160,
+      "neighbours": ""
+    },
+    {
+      "operation": "ADD",
+      "number": 5,
+      "neighbours": ""
+    },
+    {
+      "operation": "ADD",
+      "number": 8,
+      "neighbours": ""
+    },
+    {
+      "operation": "SOLO",
       "number": 3,
       "neighbours": ""
-    },
-    {
-      "operation": "ADD",
-      "number": 6,
-      "neighbours": ""
-    },
-    {
-      "operation": "ADD",
-      "number": 6,
-      "neighbours": ""
-    },
-    {
-      "operation": "ADD",
-      "number": 6,
-      "neighbours": ""
     }
   ],
   [
     {
-      "operation": "ADD",
-      "number": 6,
+      "operation": "MULTIPLY",
+      "number": 160,
       "neighbours": ""
     },
     {
-      "operation": "MINUS",
-      "number": 3,
-      "neighbours": ""
-    },
-    {
-      "operation": "MINUS",
-      "number": 0,
-      "neighbours": ""
-    },
-    {
-      "operation": "MINUS",
-      "number": 0,
+      "operation": "MULTIPLY",
+      "number": 160,
       "neighbours": ""
     },
     {
       "operation": "ADD",
-      "number": 0,
-      "neighbours": ""
-    }
-  ],
-  [
-    {
-      "operation": "ADD",
-      "number": 0,
+      "number": 5,
       "neighbours": ""
     },
     {
       "operation": "MINUS",
-      "number": 0,
+      "number": 4,
       "neighbours": ""
     },
     {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
-    },
-    {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
-    },
-    {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
-    }
-  ],
-  [
-    {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
-    },
-    {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
-    },
-    {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
-    },
-    {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
-    },
-    {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
-    }
-  ],
-  [
-    {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
-    },
-    {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
-    },
-    {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
-    },
-    {
-      "operation": "",
-      "number": 0,
-      "neighbours": ""
-    },
-    {
-      "operation": "",
-      "number": 0,
+      "operation": "MINUS",
+      "number": 4,
       "neighbours": ""
     }
   ]
