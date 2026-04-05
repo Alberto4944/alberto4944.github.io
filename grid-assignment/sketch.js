@@ -1,17 +1,21 @@
 // Grid Based Assignment
-// Your Name
+// Albert Wu
 // Date
 // Likely will be a kenken style game
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-// 2d rectangular operationGrid demo
-
-const CELL_SIZE = 100;
+const TILE_SIZE = 100;
 let sides = 5;
-let objectGrid;
+let grid;
 let operationLocked = true;
 let canInputNumber = true;
+
+const addColor = [244,137,137];
+const subtractColor = "teal";
+const multiplyColor = "orange";
+const divideColor = "green";
+const equalsColor = "white";
 
 let selectedCell = {
   x: -1,
@@ -26,7 +30,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  objectGrid = generateObjects();
+  grid = resetBoard();
 }
 
 function draw() {
@@ -37,36 +41,36 @@ function draw() {
 }
 
 function keyPressed() {
-  if (key === "e") {
-    console.log("PRESSED E");
-    objectGrid = generateObjects();
+  // Generates an empty grid with all blanks
+  if (key === "e") { 
+    grid = resetBoard();
     selectedCell = {
       x: -1,
       y: -1
     };
   }
   else if (key === "g") {
-    objectGrid = structuredClone(first5x5); 
+    grid = structuredClone(first5x5); 
     for (let i = 0; i < sides; i++) {
       for (let j = 0; j < sides; j++) {
-        objectGrid[i][j].guessedNumber = "Blank";
+        grid[i][j].guessedNumber = "BLANK";
       }
     
     }
   }
   else if (key === "l") {
-    operationLock = !operationLock;
+    operationLocked = !operationLocked;
   }
   else if ("123456789".includes(key) && canInputNumber && selectedCell.x !== -1 && key <= sides) {
-    objectGrid[selectedCell.y][selectedCell.x].guessedNumber = Number(key);
+    grid[selectedCell.y][selectedCell.x].guessedNumber = Number(key);
   }
   else if (keyCode === DELETE) {
-    objectGrid[selectedCell.y][selectedCell.x].guessedNumber = "Blank";
+    grid[selectedCell.y][selectedCell.x].guessedNumber = "BLANK";
   }
 }
 
 function displayGrid() {
-  let totalGridSize = sides * CELL_SIZE;
+  let totalGridSize = sides * TILE_SIZE;
   let offsetX = (width - totalGridSize) / 2;
   let offsetY = (height - totalGridSize) / 2;
   push();
@@ -74,36 +78,35 @@ function displayGrid() {
 
   for (let y = 0; y < sides; y++) {
     for (let x = 0; x < sides; x++) {   
-      
-      let currentOperation = objectGrid[y][x].operation;
-      let currentNumber = objectGrid[y][x].number;  
-      let currentGuess = objectGrid[y][x].guessedNumber;
+      let currentOperation = grid[y][x].operation;
+      let currentNumber = grid[y][x].number;  
+      let currentGuess = grid[y][x].guessedNumber;
 
       strokeWeight(0);
       if (currentOperation === "ADD") {
-        fill(244,137,137);
+        fill(addColor);
       }
       else if (currentOperation === "MINUS") {
-        fill("teal");
+        fill(subtractColor);
       }
       else if (currentOperation === "MULTIPLY") {
-        fill("orange");
+        fill(multiplyColor);
       }
       else if (currentOperation === "DIVIDE") {
-        fill("green");
+        fill(divideColor);
       }
       else {
-        fill("white");
+        fill(equalsColor);
       }
-      square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
+      square(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE);
       fill("black");
       textSize(25);
 
       let isFirstInGroup = true;
-      if (y > 0 && currentNumber === objectGrid[y-1][x].number && currentOperation === objectGrid[y-1][x].operation) {
+      if (y > 0 && currentNumber === grid[y-1][x].number && currentOperation === grid[y-1][x].operation) {
         isFirstInGroup = false;
       }
-      else if (x > 0 && currentNumber === objectGrid[y][x-1].number && currentOperation === objectGrid[y][x-1].operation) {
+      else if (x > 0 && currentNumber === grid[y][x-1].number && currentOperation === grid[y][x-1].operation) {
         isFirstInGroup = false;
       }
       
@@ -121,77 +124,63 @@ function displayGrid() {
         else if (currentOperation === "DIVIDE") {
           symbol = "÷";
         }
-        text(`${currentNumber}${symbol}`, 10 + x * CELL_SIZE, 30 + y * CELL_SIZE);
+        text(`${currentNumber}${symbol}`, 10 + x * TILE_SIZE, 30 + y * TILE_SIZE);
       }
 
       drawBorderOfTile(x,y,currentNumber, currentOperation);
-      if (currentGuess !== "Blank") {
+      if (currentGuess !== "BLANK") {
         strokeWeight(1);
         textSize(40);
         textAlign(CENTER);
-        text(`${currentGuess}`,  x * CELL_SIZE + CELL_SIZE/2, y * CELL_SIZE + CELL_SIZE/2 + 20);
+        text(`${currentGuess}`,  x * TILE_SIZE + TILE_SIZE/2, y * TILE_SIZE + TILE_SIZE/2 + 20);
         textAlign(LEFT);
-      }
-      else if (currentGuess === "Blank") {
-
       }
     }
   }
 }
 
 function mousePressed() {
-  let totalGridSize = sides * CELL_SIZE;
+  let totalGridSize = sides * TILE_SIZE;
   let offsetX = (width - totalGridSize) / 2;
   let offsetY = (height - totalGridSize) / 2;
 
-  let x = Math.floor((mouseX - offsetX)/CELL_SIZE);
-  let y = Math.floor((mouseY - offsetY)/CELL_SIZE);
+  let x = Math.floor((mouseX - offsetX)/TILE_SIZE);
+  let y = Math.floor((mouseY - offsetY)/TILE_SIZE);
 
   if (x >= 0 && x < sides && y >= 0 && y < sides) {
     selectedCell.x = x;
     selectedCell.y = y;
   }
   else {
-    selectedCell.x = -1;
-    selectedCell.y = -1;
+    selectedCell.x, selectedCell.y = -1;
   }
-
-  if (!operationLocked) {
-    toggleCell(x, y);
-  }
-  
+  toggleCell(x, y);
 }
 
 function toggleCell(x, y) {
-  //make sure the cell you're toggling is in the objectGrid
-  if (x >= 0 && x < sides && y >= 0 && y < sides) {
-    if (objectGrid[y][x].operation === "SOLO") {
-      objectGrid[y][x].operation = "MINUS";
+  //make sure the cell you're toggling is in the grid
+  let operationList = ["EQUALS", "MINUS", "MULTIPLY", "DIVIDE", "ADD"];
+  let currentIndex = operationList.indexOf(grid[y][x].operation);
+
+  if (x >= 0 && x < sides && y >= 0 && y < sides && !operationLocked) {
+    if (currentIndex !== 4) {
+      grid[y][x].operation = operationList[currentIndex+1];
     }
-    else if (objectGrid[y][x].operation === "MINUS") {
-      objectGrid[y][x].operation = "MULTIPLY";
-    }
-    else if (objectGrid[y][x].operation === "MULTIPLY") {
-      objectGrid[y][x].operation = "DIVIDE";
-    }
-    else if (objectGrid[y][x].operation === "DIVIDE") {
-      objectGrid[y][x].operation = "ADD";
-    }
-    else if (objectGrid[y][x].operation === "ADD") {
-      objectGrid[y][x].operation = "SOLO";
+    else {
+      grid[y][x].operation = "EQUALS";
     }
   }
 }
 
-function generateObjects() {
+function resetBoard() {
   let newArray = [];
   for (let y = 0; y < sides; y++) {
     newArray.push([]);
     for (let x = 0; x < sides; x++) {
       newArray[y].push({
-        operation: "SOLO",
+        operation: "EQUALS",
         number: 0,
-        guessedNumber: "Blank"
+        guessedNumber: "BLANK"
       });
     }
   }
@@ -201,23 +190,23 @@ function generateObjects() {
 function drawBorderOfTile(x,y,currentNumber, currentOperation) {
   strokeWeight(BORDER);
   // Line for right side
-  if (x < sides-1 && (currentNumber !== objectGrid[y][x+1].number || currentOperation !== objectGrid[y][x+1].operation)) {
-    line((x+1)*CELL_SIZE, y*CELL_SIZE, (x+1)*CELL_SIZE, (y+1)*CELL_SIZE);
+  if (x < sides-1 && (currentNumber !== grid[y][x+1].number || currentOperation !== grid[y][x+1].operation)) {
+    line((x+1)*TILE_SIZE, y*TILE_SIZE, (x+1)*TILE_SIZE, (y+1)*TILE_SIZE);
   }
 
   // Line for below
-  if (y < sides-1 && (currentNumber !== objectGrid[y+1][x].number || currentOperation !== objectGrid[y+1][x].operation)) {
-    line((x+1)*CELL_SIZE, (y+1)*CELL_SIZE, x*CELL_SIZE, (y+1)*CELL_SIZE);
+  if (y < sides-1 && (currentNumber !== grid[y+1][x].number || currentOperation !== grid[y+1][x].operation)) {
+    line((x+1)*TILE_SIZE, (y+1)*TILE_SIZE, x*TILE_SIZE, (y+1)*TILE_SIZE);
   }
 
   // Line for left side
-  if (x > 0 && (currentNumber !== objectGrid[y][x-1].number || currentOperation !== objectGrid[y][x-1].operation)) {
-    line(x*CELL_SIZE, (y+1)*CELL_SIZE, x*CELL_SIZE, y*CELL_SIZE);
+  if (x > 0 && (currentNumber !== grid[y][x-1].number || currentOperation !== grid[y][x-1].operation)) {
+    line(x*TILE_SIZE, (y+1)*TILE_SIZE, x*TILE_SIZE, y*TILE_SIZE);
   }
 
   // // Line for above
-  if (y > 0 && (currentNumber !== objectGrid[y-1][x].number || currentOperation !== objectGrid[y-1][x].operation)) {
-    line((x+1)*CELL_SIZE, y*CELL_SIZE, x*CELL_SIZE, y*CELL_SIZE);
+  if (y > 0 && (currentNumber !== grid[y-1][x].number || currentOperation !== grid[y-1][x].operation)) {
+    line((x+1)*TILE_SIZE, y*TILE_SIZE, x*TILE_SIZE, y*TILE_SIZE);
   }
 }
 
@@ -227,10 +216,9 @@ function drawSelectedTile() {
     strokeWeight(5);  
     noFill();         
     
-    square(selectedCell.x * CELL_SIZE, selectedCell.y * CELL_SIZE, CELL_SIZE);
+    square(selectedCell.x * TILE_SIZE, selectedCell.y * TILE_SIZE, TILE_SIZE);
     stroke("black");
   }
-  pop();
 }
 
 function checkIfWon() {
@@ -245,7 +233,7 @@ function checkIfWon() {
 function compareArrays() {
   for (let i = 0; i < sides; i++) {
     for (let j = 0; j < sides; j++) {
-      if (objectGrid[i][j].guessedNumber !== first5x5[i][j].guessedNumber) {
+      if (grid[i][j].guessedNumber !== first5x5[i][j].guessedNumber) {
         return false;
       }
     }

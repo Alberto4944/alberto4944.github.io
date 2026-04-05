@@ -102,7 +102,7 @@
       "guessedNumber": 1
     },
     {
-      "operation": "SOLO",
+      "operation": "EQUALS",
       "number": 3,
       "guessedNumber": 3
     }
