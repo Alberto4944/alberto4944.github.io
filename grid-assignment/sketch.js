@@ -3,13 +3,22 @@
 // Date
 // Likely will be a kenken style game
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// - describe what you did to take this project "above and beyond"\
+
+// Planning for Level Selection Screen:
+// - Title and Description
+// - Grid size (3x3 to maybe 8x8 or 9x9)
+// - Level Difficulty (easy, medium, hard)
+// - Optional Color Change for different tile types
+// - Custom Level Editor (try to make simple checker to check groups and rows and cols)
 
 const TILE_SIZE = 100;
-let sides = 5;
+let boardSize = 5;
 let grid;
 let operationLocked = true;
 let canInputNumber = true;
+
+let gameState = "levelSelect";
 
 const addColor = [244,137,137];
 const subtractColor = "teal";
@@ -34,10 +43,13 @@ function setup() {
 }
 
 function draw() {
-  background(220);
-  displayGrid();
-  drawSelectedTile();
-  checkIfWon();
+  background("#101211");
+  if (gameState === "game") {
+    displayGrid();
+    drawSelectedTile();
+    checkIfWon();
+  }
+  
 }
 
 function keyPressed() {
@@ -51,8 +63,8 @@ function keyPressed() {
   }
   else if (key === "g") {
     grid = structuredClone(first5x5); 
-    for (let i = 0; i < sides; i++) {
-      for (let j = 0; j < sides; j++) {
+    for (let i = 0; i < boardSize; i++) {
+      for (let j = 0; j < boardSize; j++) {
         grid[i][j].guessedNumber = "BLANK";
       }
     
@@ -61,7 +73,7 @@ function keyPressed() {
   else if (key === "l") {
     operationLocked = !operationLocked;
   }
-  else if ("123456789".includes(key) && canInputNumber && selectedCell.x !== -1 && key <= sides) {
+  else if ("123456789".includes(key) && canInputNumber && selectedCell.x !== -1 && key <= boardSize) {
     grid[selectedCell.y][selectedCell.x].guessedNumber = Number(key);
   }
   else if (keyCode === DELETE) {
@@ -70,14 +82,14 @@ function keyPressed() {
 }
 
 function displayGrid() {
-  let totalGridSize = sides * TILE_SIZE;
+  let totalGridSize = boardSize * TILE_SIZE;
   let offsetX = (width - totalGridSize) / 2;
   let offsetY = (height - totalGridSize) / 2;
   push();
   translate(offsetX, offsetY);
 
-  for (let y = 0; y < sides; y++) {
-    for (let x = 0; x < sides; x++) {   
+  for (let y = 0; y < boardSize; y++) {
+    for (let x = 0; x < boardSize; x++) {   
       let currentOperation = grid[y][x].operation;
       let currentNumber = grid[y][x].number;  
       let currentGuess = grid[y][x].guessedNumber;
@@ -140,21 +152,23 @@ function displayGrid() {
 }
 
 function mousePressed() {
-  let totalGridSize = sides * TILE_SIZE;
-  let offsetX = (width - totalGridSize) / 2;
-  let offsetY = (height - totalGridSize) / 2;
+  if (gameState === "game") {
+    let totalGridSize = boardSize * TILE_SIZE;
+    let offsetX = (width - totalGridSize) / 2;
+    let offsetY = (height - totalGridSize) / 2;
 
-  let x = Math.floor((mouseX - offsetX)/TILE_SIZE);
-  let y = Math.floor((mouseY - offsetY)/TILE_SIZE);
+    let x = Math.floor((mouseX - offsetX)/TILE_SIZE);
+    let y = Math.floor((mouseY - offsetY)/TILE_SIZE);
 
-  if (x >= 0 && x < sides && y >= 0 && y < sides) {
-    selectedCell.x = x;
-    selectedCell.y = y;
+    if (x >= 0 && x < boardSize && y >= 0 && y < boardSize) {
+      selectedCell.x = x;
+      selectedCell.y = y;
+    }
+    else {
+      selectedCell.x, selectedCell.y = -1;
+    }
+    toggleCell(x, y);
   }
-  else {
-    selectedCell.x, selectedCell.y = -1;
-  }
-  toggleCell(x, y);
 }
 
 function toggleCell(x, y) {
@@ -162,7 +176,7 @@ function toggleCell(x, y) {
   let operationList = ["EQUALS", "MINUS", "MULTIPLY", "DIVIDE", "ADD"];
   let currentIndex = operationList.indexOf(grid[y][x].operation);
 
-  if (x >= 0 && x < sides && y >= 0 && y < sides && !operationLocked) {
+  if (x >= 0 && x < boardSize && y >= 0 && y < boardSize && !operationLocked) {
     if (currentIndex !== 4) {
       grid[y][x].operation = operationList[currentIndex+1];
     }
@@ -174,9 +188,9 @@ function toggleCell(x, y) {
 
 function resetBoard() {
   let newArray = [];
-  for (let y = 0; y < sides; y++) {
+  for (let y = 0; y < boardSize; y++) {
     newArray.push([]);
-    for (let x = 0; x < sides; x++) {
+    for (let x = 0; x < boardSize; x++) {
       newArray[y].push({
         operation: "EQUALS",
         number: 0,
@@ -190,12 +204,12 @@ function resetBoard() {
 function drawBorderOfTile(x,y,currentNumber, currentOperation) {
   strokeWeight(BORDER);
   // Line for right side
-  if (x < sides-1 && (currentNumber !== grid[y][x+1].number || currentOperation !== grid[y][x+1].operation)) {
+  if (x < boardSize-1 && (currentNumber !== grid[y][x+1].number || currentOperation !== grid[y][x+1].operation)) {
     line((x+1)*TILE_SIZE, y*TILE_SIZE, (x+1)*TILE_SIZE, (y+1)*TILE_SIZE);
   }
 
   // Line for below
-  if (y < sides-1 && (currentNumber !== grid[y+1][x].number || currentOperation !== grid[y+1][x].operation)) {
+  if (y < boardSize-1 && (currentNumber !== grid[y+1][x].number || currentOperation !== grid[y+1][x].operation)) {
     line((x+1)*TILE_SIZE, (y+1)*TILE_SIZE, x*TILE_SIZE, (y+1)*TILE_SIZE);
   }
 
@@ -231,8 +245,8 @@ function checkIfWon() {
 }
 
 function compareArrays() {
-  for (let i = 0; i < sides; i++) {
-    for (let j = 0; j < sides; j++) {
+  for (let i = 0; i < boardSize; i++) {
+    for (let j = 0; j < boardSize; j++) {
       if (grid[i][j].guessedNumber !== first5x5[i][j].guessedNumber) {
         return false;
       }
