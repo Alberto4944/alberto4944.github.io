@@ -17,6 +17,7 @@ let boardSize = 5;
 let grid;
 let operationLocked = true;
 let canInputNumber = true;
+let boardSizeSlider;
 
 let gameState = "levelSelect";
 
@@ -40,16 +41,26 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   grid = resetBoard();
+  createBoardSizeSlider();
 }
 
 function draw() {
   background("#101211");
   if (gameState === "game") {
+    boardSizeSlider.hide();
     displayGrid();
     drawSelectedTile();
     checkIfWon();
   }
-  
+  else if (gameState === "levelSelect") {
+    boardSizeSlider.show();
+    let val = boardSizeSlider.value();
+    fill("white");
+    textSize(50);
+    textAlign(CENTER);
+    text(`Board Size: ${val}`, width/2, height/2+100);
+    textAlign(LEFT);
+  }
 }
 
 function keyPressed() {
@@ -253,4 +264,11 @@ function compareArrays() {
     }
   }
   return true;
+}
+
+function createBoardSizeSlider() {
+  let sliderLength = width/4;
+  boardSizeSlider = createSlider(3,9);
+  boardSizeSlider.position(width/2-sliderLength/2, height/2);
+  boardSizeSlider.size(sliderLength);
 }
