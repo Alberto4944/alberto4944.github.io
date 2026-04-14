@@ -13,7 +13,7 @@
 // - Custom Level Editor (try to make simple checker to check groups and rows and cols)
 
 const TILE_SIZE = 100;
-let boardSize = 5;
+let boardSize;
 let grid;
 let operationLocked = true;
 let canInputNumber = true;
@@ -53,13 +53,8 @@ function draw() {
     checkIfWon();
   }
   else if (gameState === "levelSelect") {
-    boardSizeSlider.show();
-    let val = boardSizeSlider.value();
-    fill("white");
-    textSize(50);
-    textAlign(CENTER);
-    text(`Board Size: ${val}`, width/2, height/2+100);
-    textAlign(LEFT);
+    levelSelectScreen();
+    
   }
 }
 
@@ -72,7 +67,7 @@ function keyPressed() {
       y: -1
     };
   }
-  else if (key === "g") {
+  else if (key === "g" && boardSize === 5) {
     grid = structuredClone(first5x5); 
     for (let i = 0; i < boardSize; i++) {
       for (let j = 0; j < boardSize; j++) {
@@ -90,6 +85,11 @@ function keyPressed() {
   else if (keyCode === DELETE) {
     grid[selectedCell.y][selectedCell.x].guessedNumber = "BLANK";
   }
+
+  else if (keyCode === ENTER && gameState === "levelSelect") {
+    gameState = "game";
+  }
+
 }
 
 function displayGrid() {
@@ -266,9 +266,21 @@ function compareArrays() {
   return true;
 }
 
-function createBoardSizeSlider() {
+function createBoardSizeSlider(length, start, end, x, y) {
   let sliderLength = width/4;
   boardSizeSlider = createSlider(3,9);
-  boardSizeSlider.position(width/2-sliderLength/2, height/2);
+  boardSizeSlider.position(width/2-sliderLength/2, height/2+20);
   boardSizeSlider.size(sliderLength);
+}
+
+function levelSelectScreen() {
+  boardSizeSlider.show();
+  fill("white");
+  textAlign(CENTER);
+  textSize(50);
+  text(`Solve some Kenkens and have fun! Select
+     a board size and press enter to begin`, width/2, height/2-125);
+  textSize(35);
+  text(`Board Size: ${boardSizeSlider.value()}`, width/2, height/2);
+  boardSize = boardSizeSlider.value();
 }
