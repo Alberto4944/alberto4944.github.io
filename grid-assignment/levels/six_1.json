@@ -1,0 +1,194 @@
+[
+  [
+    {
+      "operation": "MULTIPLY",
+      "number": 20,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "MINUS",
+      "number": 2,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "ADD",
+      "number": 13,
+      "guessedNumber": 5
+    },
+    {
+      "operation": "ADD",
+      "number": 13,
+      "guessedNumber": 6
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 2,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 2,
+      "guessedNumber": 2
+    }
+  ],
+  [
+    {
+      "operation": "MULTIPLY",
+      "number": 20,
+      "guessedNumber": 5
+    },
+    {
+      "operation": "MINUS",
+      "number": 2,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "ADD",
+      "number": 13,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 36,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "MINUS",
+      "number": 2,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "MINUS",
+      "number": 2,
+      "guessedNumber": 6
+    }
+  ],
+  [
+    {
+      "operation": "DIVIDE",
+      "number": 2,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 2,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 36,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 36,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "ADD",
+      "number": 12,
+      "guessedNumber": 6
+    },
+    {
+      "operation": "ADD",
+      "number": 12,
+      "guessedNumber": 5
+    }
+  ],
+  [
+    {
+      "operation": "ADD",
+      "number": 12,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "ADD",
+      "number": 12,
+      "guessedNumber": 6
+    },
+    {
+      "operation": "ADD",
+      "number": 12,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 15,
+      "guessedNumber": 5
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 15,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "ADD",
+      "number": 12,
+      "guessedNumber": 1
+    }
+  ],
+  [
+    {
+      "operation": "ADD",
+      "number": 14,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "ADD",
+      "number": 14,
+      "guessedNumber": 5
+    },
+    {
+      "operation": "MINUS",
+      "number": 5,
+      "guessedNumber": 6
+    },
+    {
+      "operation": "MINUS",
+      "number": 5,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "MINUS",
+      "number": 3,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "MINUS",
+      "number": 1,
+      "guessedNumber": 4
+    }
+  ],
+  [
+    {
+      "operation": "ADD",
+      "number": 14,
+      "guessedNumber": 6
+    },
+    {
+      "operation": "ADD",
+      "number": 7,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "ADD",
+      "number": 7,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "ADD",
+      "number": 7,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "MINUS",
+      "number": 3,
+      "guessedNumber": 5
+    },
+    {
+      "operation": "MINUS",
+      "number": 1,
+      "guessedNumber": 3
+    }
+  ]
+]

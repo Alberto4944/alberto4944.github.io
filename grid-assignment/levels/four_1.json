@@ -1,0 +1,90 @@
+[
+  [
+    {
+      "operation": "MULTIPLY",
+      "number": 6,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "MINUS",
+      "number": 3,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "MINUS",
+      "number": 3,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "EQUALS",
+      "number": 2,
+      "guessedNumber": 2
+    }
+  ],
+  [
+    {
+      "operation": "MULTIPLY",
+      "number": 6,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 6,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 2,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "MINUS",
+      "number": 2,
+      "guessedNumber": 3
+    }
+  ],
+  [
+    {
+      "operation": "ADD",
+      "number": 8,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "ADD",
+      "number": 8,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 2,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "MINUS",
+      "number": 2,
+      "guessedNumber": 1
+    }
+  ],
+  [
+    {
+      "operation": "EQUALS",
+      "number": 2,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "ADD",
+      "number": 8,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "ADD",
+      "number": 7,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "ADD",
+      "number": 7,
+      "guessedNumber": 4
+    }
+  ]
+]

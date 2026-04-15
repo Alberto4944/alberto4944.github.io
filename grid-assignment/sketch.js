@@ -12,11 +12,11 @@
 // - Optional Color Change for different tile types
 // - Custom Level Editor (try to make simple checker to check groups and rows and cols)
 
-const TILE_SIZE = 100;
+let TILE_SIZE;
 let boardSize;
 let grid;
 let operationLocked = true;
-let canInputNumber = true;
+let numberLocked = false;
 let boardSizeSlider;
 
 let gameState = "levelSelect";
@@ -35,13 +35,17 @@ let selectedCell = {
 const BORDER = 5;
 
 function preload() {
-  first5x5 = loadJSON("5x5_1.json");
+  five_1 = loadJSON("levels/five_1.json");
 }
+
+// let levelList {
+//   3: 
+// }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  grid = resetBoard();
   createBoardSizeSlider();
+  TILE_SIZE = width/10;
 }
 
 function draw() {
@@ -58,6 +62,8 @@ function draw() {
   }
 }
 
+let numberWantedToEnter = "";
+
 function keyPressed() {
   // Generates an empty grid with all blanks
   if (key === "e") { 
@@ -68,7 +74,7 @@ function keyPressed() {
     };
   }
   else if (key === "g" && boardSize === 5) {
-    grid = structuredClone(first5x5); 
+    grid = structuredClone(five_1); 
     for (let i = 0; i < boardSize; i++) {
       for (let j = 0; j < boardSize; j++) {
         grid[i][j].guessedNumber = "BLANK";
@@ -79,15 +85,41 @@ function keyPressed() {
   else if (key === "l") {
     operationLocked = !operationLocked;
   }
-  else if ("123456789".includes(key) && canInputNumber && selectedCell.x !== -1 && key <= boardSize) {
+  else if (key === "n") {
+    numberLocked = !numberLocked;
+  }
+  else if ("123456789".includes(key) && !numberLocked && selectedCell.x !== -1 && selectedCell.y !== -1 && key <= boardSize) {
     grid[selectedCell.y][selectedCell.x].guessedNumber = Number(key);
   }
-  else if (keyCode === DELETE) {
+
+  else if ("0123456789".includes(key) && numberLocked && selectedCell.x !== -1 && selectedCell.y !== -1) {
+    grid[selectedCell.y][selectedCell.x].number = Number(String(grid[selectedCell.y][selectedCell.x].number)+key);
+  }
+
+  else if (keyCode === ENTER && numberLocked) {
+    grid[selectedCell.y][selectedCell.x].number = Number(numberWantedToEnter);
+    numberWantedToEnter = "";
+  }
+
+  else if (keyCode === DELETE && !numberLocked) {
     grid[selectedCell.y][selectedCell.x].guessedNumber = "BLANK";
+  }
+
+  else if (keyCode === DELETE && numberLocked) {
+    grid[selectedCell.y][selectedCell.x].number = 0;
   }
 
   else if (keyCode === ENTER && gameState === "levelSelect") {
     gameState = "game";
+    grid = resetBoard();
+    if (boardSize === 5) {
+      grid = structuredClone(five_1); 
+      for (let i = 0; i < boardSize; i++) {
+        for (let j = 0; j < boardSize; j++) {
+          grid[i][j].guessedNumber = "BLANK";
+        }
+      }
+    }
   }
 
 }
@@ -124,7 +156,7 @@ function displayGrid() {
       square(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE);
       fill("black");
       textSize(25);
-
+      textAlign(LEFT);
       let isFirstInGroup = true;
       if (y > 0 && currentNumber === grid[y-1][x].number && currentOperation === grid[y-1][x].operation) {
         isFirstInGroup = false;
@@ -152,11 +184,10 @@ function displayGrid() {
 
       drawBorderOfTile(x,y,currentNumber, currentOperation);
       if (currentGuess !== "BLANK") {
+        textAlign(CENTER);
         strokeWeight(1);
         textSize(40);
-        textAlign(CENTER);
         text(`${currentGuess}`,  x * TILE_SIZE + TILE_SIZE/2, y * TILE_SIZE + TILE_SIZE/2 + 20);
-        textAlign(LEFT);
       }
     }
   }
@@ -178,18 +209,19 @@ function mousePressed() {
     else {
       selectedCell.x, selectedCell.y = -1;
     }
-    toggleCell(x, y);
+    if (!operationLocked) {
+      toggleCell(x, y);
+    }
   }
 }
 
 function toggleCell(x, y) {
   //make sure the cell you're toggling is in the grid
   let operationList = ["EQUALS", "MINUS", "MULTIPLY", "DIVIDE", "ADD"];
-  let currentIndex = operationList.indexOf(grid[y][x].operation);
 
   if (x >= 0 && x < boardSize && y >= 0 && y < boardSize && !operationLocked) {
-    if (currentIndex !== 4) {
-      grid[y][x].operation = operationList[currentIndex+1];
+    if (operationList.indexOf(grid[y][x].operation) !== 4) {
+      grid[y][x].operation = operationList[operationList.indexOf(grid[y][x].operation)+1];
     }
     else {
       grid[y][x].operation = "EQUALS";
@@ -258,7 +290,7 @@ function checkIfWon() {
 function compareArrays() {
   for (let i = 0; i < boardSize; i++) {
     for (let j = 0; j < boardSize; j++) {
-      if (grid[i][j].guessedNumber !== first5x5[i][j].guessedNumber) {
+      if (grid[i][j].guessedNumber !== five_1[i][j].guessedNumber) {
         return false;
       }
     }
