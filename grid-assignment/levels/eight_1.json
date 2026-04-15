@@ -1,0 +1,338 @@
+[
+  [
+    {
+      "operation": "MULTIPLY",
+      "number": 24,
+      "guessedNumber": 6
+    },
+    {
+      "operation": "ADD",
+      "number": 3,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "ADD",
+      "number": 3,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 480,
+      "guessedNumber": 8
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 480,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "MINUS",
+      "number": 4,
+      "guessedNumber": 7
+    },
+    {
+      "operation": "MINUS",
+      "number": 4,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 210,
+      "guessedNumber": 5
+    }
+  ],
+  [
+    {
+      "operation": "MULTIPLY",
+      "number": 24,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 24,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 3,
+      "guessedNumber": 6
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 3,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 480,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 480,
+      "guessedNumber": 5
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 56,
+      "guessedNumber": 8
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 210,
+      "guessedNumber": 7
+    }
+  ],
+  [
+    {
+      "operation": "DIVIDE",
+      "number": 3,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 3,
+      "guessedNumber": 6
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 4,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 4,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "ADD",
+      "number": 14,
+      "guessedNumber": 5
+    },
+    {
+      "operation": "ADD",
+      "number": 14,
+      "guessedNumber": 8
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 56,
+      "guessedNumber": 7
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 210,
+      "guessedNumber": 3
+    }
+  ],
+  [
+    {
+      "operation": "ADD",
+      "number": 11,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "ADD",
+      "number": 11,
+      "guessedNumber": 7
+    },
+    {
+      "operation": "MINUS",
+      "number": 7,
+      "guessedNumber": 8
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 42,
+      "guessedNumber": 6
+    },
+    {
+      "operation": "ADD",
+      "number": 14,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "ADD",
+      "number": 8,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "ADD",
+      "number": 8,
+      "guessedNumber": 5
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 210,
+      "guessedNumber": 2
+    }
+  ],
+  [
+    {
+      "operation": "MULTIPLY",
+      "number": 24,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "ADD",
+      "number": 7,
+      "guessedNumber": 5
+    },
+    {
+      "operation": "MINUS",
+      "number": 7,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 42,
+      "guessedNumber": 7
+    },
+    {
+      "operation": "MINUS",
+      "number": 1,
+      "guessedNumber": 8
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 144,
+      "guessedNumber": 6
+    },
+    {
+      "operation": "MINUS",
+      "number": 2,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "MINUS",
+      "number": 2,
+      "guessedNumber": 2
+    }
+  ],
+  [
+    {
+      "operation": "MULTIPLY",
+      "number": 24,
+      "guessedNumber": 8
+    },
+    {
+      "operation": "ADD",
+      "number": 7,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "MINUS",
+      "number": 2,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "MINUS",
+      "number": 2,
+      "guessedNumber": 5
+    },
+    {
+      "operation": "MINUS",
+      "number": 1,
+      "guessedNumber": 7
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 144,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 144,
+      "guessedNumber": 6
+    },
+    {
+      "operation": "MINUS",
+      "number": 7,
+      "guessedNumber": 1
+    }
+  ],
+  [
+    {
+      "operation": "MINUS",
+      "number": 2,
+      "guessedNumber": 5
+    },
+    {
+      "operation": "MINUS",
+      "number": 2,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "ADD",
+      "number": 16,
+      "guessedNumber": 7
+    },
+    {
+      "operation": "ADD",
+      "number": 16,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 3,
+      "guessedNumber": 6
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 2,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "ADD",
+      "number": 11,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "MINUS",
+      "number": 7,
+      "guessedNumber": 8
+    }
+  ],
+  [
+    {
+      "operation": "MINUS",
+      "number": 1,
+      "guessedNumber": 7
+    },
+    {
+      "operation": "MINUS",
+      "number": 1,
+      "guessedNumber": 8
+    },
+    {
+      "operation": "ADD",
+      "number": 16,
+      "guessedNumber": 5
+    },
+    {
+      "operation": "EQUALS",
+      "number": 3,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 3,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 2,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "ADD",
+      "number": 11,
+      "guessedNumber": 4
+    },
+    {
+      "operation": "ADD",
+      "number": 11,
+      "guessedNumber": 6
+    }
+  ]
+]

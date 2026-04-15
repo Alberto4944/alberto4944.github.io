@@ -1,0 +1,53 @@
+[
+  [
+    {
+      "operation": "DIVIDE",
+      "number": 3,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 2,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "EQUALS",
+      "number": 3,
+      "guessedNumber": 3
+    }
+  ],
+  [
+    {
+      "operation": "DIVIDE",
+      "number": 3,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "DIVIDE",
+      "number": 2,
+      "guessedNumber": 1
+    },
+    {
+      "operation": "MINUS",
+      "number": 1,
+      "guessedNumber": 2
+    }
+  ],
+  [
+    {
+      "operation": "MULTIPLY",
+      "number": 6,
+      "guessedNumber": 2
+    },
+    {
+      "operation": "MULTIPLY",
+      "number": 6,
+      "guessedNumber": 3
+    },
+    {
+      "operation": "MINUS",
+      "number": 1,
+      "guessedNumber": 1
+    }
+  ]
+]

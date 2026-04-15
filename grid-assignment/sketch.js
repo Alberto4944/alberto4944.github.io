@@ -1,23 +1,30 @@
 // Grid Based Assignment
 // Albert Wu
-// Date
-// Likely will be a kenken style game
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"\
+// 2026/04/15
+// Kenken
+// Controls:
+// Click - Select Square
+// Type number - Guess
+// L - Toggle Operation Select for Level Creation
+// N - Toggle Small Goal Number Select for Level Creation
+// Enter - Used periodically
 
-// Planning for Level Selection Screen:
-// - Title and Description
-// - Grid size (3x3 to maybe 8x8 or 9x9)
-// - Level Difficulty (easy, medium, hard)
-// - Optional Color Change for different tile types
-// - Custom Level Editor (try to make simple checker to check groups and rows and cols)
-
+// Declare Variables and Constants
 let TILE_SIZE;
 let boardSize;
 let grid;
 let operationLocked = true;
 let numberLocked = false;
 let boardSizeSlider;
+let numberWantedToEnter = "";
+
+// For the Preloaded Levels
+let three_1;
+let four_1;
+let five_1;
+let six_1;
+let seven_1;
+let eight_1;
 
 let gameState = "levelSelect";
 
@@ -26,28 +33,30 @@ const subtractColor = "teal";
 const multiplyColor = "orange";
 const divideColor = "green";
 const equalsColor = "white";
+const BORDER = 5;
 
 let selectedCell = {
   x: -1,
   y: -1
 };
 
-const BORDER = 5;
-
+// Preload levels
 function preload() {
+  three_1 = loadJSON("levels/three_1.json");
+  four_1 = loadJSON("levels/four_1.json");
   five_1 = loadJSON("levels/five_1.json");
+  six_1 = loadJSON("levels/six_1.json");
+  seven_1 = loadJSON("levels/seven_1.json");
+  eight_1 = loadJSON("levels/eight_1.json");
+  levelList = [three_1, four_1, five_1, six_1, seven_1, eight_1];
 }
-
-// let levelList {
-//   3: 
-// }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   createBoardSizeSlider();
-  TILE_SIZE = width/10;
 }
 
+// Draw loop
 function draw() {
   background("#101211");
   if (gameState === "game") {
@@ -58,11 +67,9 @@ function draw() {
   }
   else if (gameState === "levelSelect") {
     levelSelectScreen();
-    
+    TILE_SIZE = height/boardSize*0.85;
   }
 }
-
-let numberWantedToEnter = "";
 
 function keyPressed() {
   // Generates an empty grid with all blanks
@@ -73,63 +80,62 @@ function keyPressed() {
       y: -1
     };
   }
-  else if (key === "g" && boardSize === 5) {
-    grid = structuredClone(five_1); 
-    for (let i = 0; i < boardSize; i++) {
-      for (let j = 0; j < boardSize; j++) {
-        grid[i][j].guessedNumber = "BLANK";
-      }
-    
-    }
-  }
+
+  // This is for making levels, where if you click l you can change operations
   else if (key === "l") {
     operationLocked = !operationLocked;
   }
+
+  // This is for making levels, where if you click n you can type in the numbers
   else if (key === "n") {
     numberLocked = !numberLocked;
   }
+
+  // Input number for guess
   else if ("123456789".includes(key) && !numberLocked && selectedCell.x !== -1 && selectedCell.y !== -1 && key <= boardSize) {
     grid[selectedCell.y][selectedCell.x].guessedNumber = Number(key);
   }
 
+  // For making levels, is for making the small number goals
   else if ("0123456789".includes(key) && numberLocked && selectedCell.x !== -1 && selectedCell.y !== -1) {
     grid[selectedCell.y][selectedCell.x].number = Number(String(grid[selectedCell.y][selectedCell.x].number)+key);
   }
 
+  // Finalizes the number for that square in level creation
   else if (keyCode === ENTER && numberLocked) {
     grid[selectedCell.y][selectedCell.x].number = Number(numberWantedToEnter);
     numberWantedToEnter = "";
   }
 
+  // When guessing, press delete for removal of number
   else if (keyCode === DELETE && !numberLocked) {
     grid[selectedCell.y][selectedCell.x].guessedNumber = "BLANK";
   }
 
+  // Removal of number in level creation
   else if (keyCode === DELETE && numberLocked) {
     grid[selectedCell.y][selectedCell.x].number = 0;
   }
 
+  // Press Enter to Start Game
   else if (keyCode === ENTER && gameState === "levelSelect") {
     gameState = "game";
-    grid = resetBoard();
-    if (boardSize === 5) {
-      grid = structuredClone(five_1); 
-      for (let i = 0; i < boardSize; i++) {
-        for (let j = 0; j < boardSize; j++) {
-          grid[i][j].guessedNumber = "BLANK";
-        }
+    grid = structuredClone(levelList[boardSize-3]); 
+    for (let i = 0; i < boardSize; i++) {
+      for (let j = 0; j < boardSize; j++) {
+        grid[i][j].guessedNumber = "BLANK";
       }
     }
   }
-
 }
 
+// Displays grid
 function displayGrid() {
   let totalGridSize = boardSize * TILE_SIZE;
   let offsetX = (width - totalGridSize) / 2;
   let offsetY = (height - totalGridSize) / 2;
   push();
-  translate(offsetX, offsetY);
+  translate(offsetX, offsetY); // Makes it so the the board is centered
 
   for (let y = 0; y < boardSize; y++) {
     for (let x = 0; x < boardSize; x++) {   
@@ -137,8 +143,9 @@ function displayGrid() {
       let currentNumber = grid[y][x].number;  
       let currentGuess = grid[y][x].guessedNumber;
 
+      // Makes the squares and colors
       strokeWeight(0);
-      if (currentOperation === "ADD") {
+      if (currentOperation === "ADD") { 
         fill(addColor);
       }
       else if (currentOperation === "MINUS") {
@@ -155,8 +162,10 @@ function displayGrid() {
       }
       square(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE);
       fill("black");
-      textSize(25);
+      textSize(TILE_SIZE/4);
       textAlign(LEFT);
+
+      // This is to calculate where to put the goal number in a group
       let isFirstInGroup = true;
       if (y > 0 && currentNumber === grid[y-1][x].number && currentOperation === grid[y-1][x].operation) {
         isFirstInGroup = false;
@@ -165,6 +174,7 @@ function displayGrid() {
         isFirstInGroup = false;
       }
       
+      // Shows the operation before the goal number for those selected cells
       if (isFirstInGroup) {
         let symbol = "";
         if (currentOperation === "ADD") {
@@ -179,15 +189,18 @@ function displayGrid() {
         else if (currentOperation === "DIVIDE") {
           symbol = "÷";
         }
-        text(`${currentNumber}${symbol}`, 10 + x * TILE_SIZE, 30 + y * TILE_SIZE);
+        text(`${currentNumber}${symbol}`, TILE_SIZE/10 + x * TILE_SIZE, TILE_SIZE*0.3 + y * TILE_SIZE);
       }
 
+      // Draws borders
       drawBorderOfTile(x,y,currentNumber, currentOperation);
+
+      // Shows the guess number
       if (currentGuess !== "BLANK") {
         textAlign(CENTER);
         strokeWeight(1);
-        textSize(40);
-        text(`${currentGuess}`,  x * TILE_SIZE + TILE_SIZE/2, y * TILE_SIZE + TILE_SIZE/2 + 20);
+        textSize(TILE_SIZE*0.4);
+        text(`${currentGuess}`,  x * TILE_SIZE + TILE_SIZE/2, y * TILE_SIZE + TILE_SIZE/2 + TILE_SIZE/4);
       }
     }
   }
@@ -202,6 +215,7 @@ function mousePressed() {
     let x = Math.floor((mouseX - offsetX)/TILE_SIZE);
     let y = Math.floor((mouseY - offsetY)/TILE_SIZE);
 
+    // Selects a cell
     if (x >= 0 && x < boardSize && y >= 0 && y < boardSize) {
       selectedCell.x = x;
       selectedCell.y = y;
@@ -229,6 +243,7 @@ function toggleCell(x, y) {
   }
 }
 
+// Reset board to all empty
 function resetBoard() {
   let newArray = [];
   for (let y = 0; y < boardSize; y++) {
@@ -244,6 +259,7 @@ function resetBoard() {
   return newArray;
 }
 
+// Draws the borders of the tiles
 function drawBorderOfTile(x,y,currentNumber, currentOperation) {
   strokeWeight(BORDER);
   // Line for right side
@@ -267,6 +283,7 @@ function drawBorderOfTile(x,y,currentNumber, currentOperation) {
   }
 }
 
+// Red border around selected tile
 function drawSelectedTile() {
   if (selectedCell.x !== -1 && selectedCell.y !== -1) {
     stroke("red");        
@@ -278,19 +295,23 @@ function drawSelectedTile() {
   }
 }
 
+// Checks if won by comparing the arrays
 function checkIfWon() {
   if (compareArrays()) {
     textSize(100);
     textAlign(CENTER);
+    fill("white");
     text("YOU WON!", width/2, 100);
     textAlign(LEFT);
+    fill("black");
   }
 }
 
+// Compares arrays and returns false or true
 function compareArrays() {
   for (let i = 0; i < boardSize; i++) {
     for (let j = 0; j < boardSize; j++) {
-      if (grid[i][j].guessedNumber !== five_1[i][j].guessedNumber) {
+      if (grid[i][j].guessedNumber !== levelList[boardSize-3][i][j].guessedNumber) {
         return false;
       }
     }
@@ -298,13 +319,15 @@ function compareArrays() {
   return true;
 }
 
-function createBoardSizeSlider(length, start, end, x, y) {
+// Board size slider for level select screen
+function createBoardSizeSlider() {
   let sliderLength = width/4;
-  boardSizeSlider = createSlider(3,9);
+  boardSizeSlider = createSlider(3,8,5);
   boardSizeSlider.position(width/2-sliderLength/2, height/2+20);
   boardSizeSlider.size(sliderLength);
 }
 
+// Level select screen
 function levelSelectScreen() {
   boardSizeSlider.show();
   fill("white");
