@@ -26,6 +26,7 @@ let six_1;
 let seven_1;
 let eight_1;
 
+// Default Game State, You Must Refresh Page to Select Different Level
 let gameState = "levelSelect";
 
 const addColor = [244,137,137];
@@ -48,7 +49,7 @@ function preload() {
   six_1 = loadJSON("levels/six_1.json");
   seven_1 = loadJSON("levels/seven_1.json");
   eight_1 = loadJSON("levels/eight_1.json");
-  levelList = [three_1, four_1, five_1, six_1, seven_1, eight_1];
+  levelList = [three_1, four_1, five_1, six_1, seven_1, eight_1]; // Can be expanded in the future, but this is enough for now
 }
 
 function setup() {
@@ -189,6 +190,7 @@ function displayGrid() {
         else if (currentOperation === "DIVIDE") {
           symbol = "÷";
         }
+        // Writes the small goal number
         text(`${currentNumber}${symbol}`, TILE_SIZE/10 + x * TILE_SIZE, TILE_SIZE*0.3 + y * TILE_SIZE);
       }
 
