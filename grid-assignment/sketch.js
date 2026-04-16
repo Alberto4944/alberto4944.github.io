@@ -2,14 +2,20 @@
 // Albert Wu
 // 2026/04/15
 // Kenken
+
 // Controls:
 // Click - Select Square
 // Type number - Guess
 // L - Toggle Operation Select for Level Creation
 // N - Toggle Small Goal Number Select for Level Creation
-// Enter - Used periodically
+// Enter - Used periodically throughout the game
 
-// Declare Variables and Constants
+// Extra For Experts and Content Beyond Class:
+// - Made the kenken render in the center of the screen using translate and offset values calculated by the width and height
+// - Multiple levels and and are selected with a slider
+//
+
+// Declare Variables
 let TILE_SIZE;
 let boardSize;
 let grid;
@@ -29,11 +35,12 @@ let eight_1;
 // Default Game State, You Must Refresh Page to Select Different Level
 let gameState = "levelSelect";
 
-const addColor = [244,137,137];
-const subtractColor = "teal";
-const multiplyColor = "orange";
-const divideColor = "green";
-const equalsColor = "white";
+// Declare Constants
+const ADD_COLOR = [244,137,137];
+const SUBTRACT_COLOR = "teal";
+const MULTIPLY_COLOR = "orange";
+const DIVIDE_COLOR = "green";
+const EQUALS_COLOR = "white";
 const BORDER = 5;
 
 let selectedCell = {
@@ -147,19 +154,19 @@ function displayGrid() {
       // Makes the squares and colors
       strokeWeight(0);
       if (currentOperation === "ADD") { 
-        fill(addColor);
+        fill(ADD_COLOR);
       }
       else if (currentOperation === "MINUS") {
-        fill(subtractColor);
+        fill(SUBTRACT_COLOR);
       }
       else if (currentOperation === "MULTIPLY") {
-        fill(multiplyColor);
+        fill(MULTIPLY_COLOR);
       }
       else if (currentOperation === "DIVIDE") {
-        fill(divideColor);
+        fill(DIVIDE_COLOR);
       }
       else {
-        fill(equalsColor);
+        fill(EQUALS_COLOR);
       }
       square(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE);
       fill("black");
@@ -334,7 +341,7 @@ function levelSelectScreen() {
   boardSizeSlider.show();
   fill("white");
   textAlign(CENTER);
-  textSize(50);
+  textSize(boardSize/2);
   text(`Solve some Kenkens and have fun! Select
      a board size and press enter to begin`, width/2, height/2-125);
   textSize(35);
