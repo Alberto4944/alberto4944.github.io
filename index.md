@@ -16,6 +16,8 @@
 - [Fireworks OOP Demo](13-fireworks)
 - [Ball Collision OOP Demo](14-ball-oop)
 - [Connected Nodes OOP Demo](15-nodes)
+- [Inheritance OOP Demo](16-inheritance)
+- [Collide 2D Demo](17-collide)
 
 ## Assignments
 - [Interactive Scene](interactive-scene)
